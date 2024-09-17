@@ -18,8 +18,12 @@ func startRepl(config *config) {
 			continue
 		}
 		commandString := words[0]
+		args := []string{}
+		if len(words) > 1 {
+			args = words[1:]
+		}
 		if command, ok := getCommands()[commandString]; ok {
-			err := command.callback(config)
+			err := command.callback(config, args...)
 			if err != nil {
 				fmt.Println(err)
 			}
